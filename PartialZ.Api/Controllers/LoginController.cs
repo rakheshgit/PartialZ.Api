@@ -20,5 +20,12 @@ namespace PartialZ.Api.Controllers
             var result = await this._loginService.Login(registrationDto.Email, registrationDto.Password);
             return Json(result);
         }
+        [HttpPost]
+        [Route("Validate")]
+        public async Task<IActionResult> ValidateOTP(OTPDto oTPDto)
+        {
+            var result = this._loginService.ValidateOTP(oTPDto.email, oTPDto.OTP.ToString());
+            return Json(result);
+        }
     }
 }

@@ -24,8 +24,11 @@ public partial class PartialZContext : DbContext
     public virtual DbSet<Employer> Employers { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=PartialZ;Persist Security Info=True;TrustServerCertificate=True;User ID=sa;Password=dotnet");
+    {
+        base.OnConfiguring(optionsBuilder);
+    }
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+ //       => optionsBuilder.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=PartialZ;Persist Security Info=True;TrustServerCertificate=True;User ID=sa;Password=dotnet");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -57,6 +60,7 @@ public partial class PartialZContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.LastName).HasMaxLength(100);
+            entity.Property(e => e.LoginOtp).HasColumnName("LoginOTP");
             entity.Property(e => e.PhoneNumber).HasMaxLength(15);
         });
 

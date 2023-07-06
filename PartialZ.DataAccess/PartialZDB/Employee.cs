@@ -24,4 +24,6 @@ public partial class Employee
     public DateTime? CreatedDate { get; set; }
 
     public DateTime? LastModifedDate { get; set; }
+
+    public int? LoginOtp { get; set; }
 }

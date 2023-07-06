@@ -45,6 +45,29 @@ namespace PartialZ.Api.Services
                 throw ex;
             }
         }
+        public void SendOTP(string toMailID,string OTP)
+        {
+            try
+            {
+                using (MailMessage user = new MailMessage("PartialZ<" + this._configuration.GetValue<string>("Mail:FromEmail") + ">", toMailID.Trim()))
+                {
+                    var Template = GetTemplate((int)EmailEnum.OTP).Result;
+                    string myString = "";
+                    myString = Template.Template;
+                    myString = myString.Replace("$$OTP_CODE$$",OTP);
+                    user.Bcc.Add(new MailAddress(this._configuration.GetValue<string>("Mail:BCC")));
+                    user.Subject = Template.Subject;
+                    user.Body = myString.ToString();
+                    user.IsBodyHtml = true;
+                    Send(user);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         private void Send(MailMessage user)
         {
             SmtpClient smtp = new SmtpClient();

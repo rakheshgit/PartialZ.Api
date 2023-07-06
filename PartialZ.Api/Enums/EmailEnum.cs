@@ -2,6 +2,7 @@
 {
     public enum EmailEnum
     {
-        EmailVerification=1
+        EmailVerification=1,
+        OTP = 2
     }
 }

@@ -99,6 +99,7 @@ namespace PartialZ.Api.Services
             try
             {
                 int employeeID = 0;
+                affidavitDto.Email = this._cryptographyService.Decrypt(affidavitDto.Email);
                 if (this._PartialZContext.Employees.Where(e => e.Email == affidavitDto.Email).Any())
                 {
                     //update
